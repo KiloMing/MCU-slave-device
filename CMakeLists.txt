@@ -48,6 +48,9 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     Hardwaer/motor.c
     Hardwaer/usart_parse.c
     Hardwaer/line_trace.c
+    Hardwaer/water_pump.c
+    Hardwaer/ultrasound.c
+    Hardwaer/milk_monitor.c
     # Add user sources here
 
 )

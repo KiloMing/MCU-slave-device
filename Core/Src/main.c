@@ -40,25 +40,6 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-/**
-  * @brief  ??? printf ??? UART5
-  * @param  ch: ??????
-  * @param  f: ????(?????,???)
-  * @retval ?????
-  * @details ???? printf ????????? UART5,?? Windows ????(\r\n)
-  */
-int fputc(int ch, FILE *f)
-{
-    /* ????? UART5 */
-    HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 100);
-    /* ?? Windows ????,???? \r */
-    if (ch == '\n') {
-        uint8_t cr = '\r';
-        HAL_UART_Transmit(&huart1, &cr, 1, 100);
-    }
-    return ch;
-}
-
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -104,6 +85,7 @@ int main(void)
   MX_TIM2_Init();
   MX_USART1_UART_Init();
   MX_TIM3_Init();
+  MX_TIM4_Init();
   MX_I2C1_Init();
   MX_CAN_Init();
   /* USER CODE BEGIN 2 */
@@ -191,7 +173,8 @@ void Error_Handler(void)
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
-  USART1_Printf("Assert failed: %s, line: %lu\r\n", file, line);
+  (void)file;
+  (void)line;
   while (1);
   /* USER CODE END 6 */
 }

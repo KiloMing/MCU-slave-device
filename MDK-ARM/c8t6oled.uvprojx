@@ -1076,6 +1076,36 @@
               <FileType>1</FileType>
               <FilePath>..\Hardwaer\tower.c</FilePath>
             </File>
+            <File>
+              <FileName>water_pump.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardwaer\water_pump.c</FilePath>
+            </File>
+            <File>
+              <FileName>water_pump.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardwaer\water_pump.h</FilePath>
+            </File>
+            <File>
+              <FileName>ultrasound.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardwaer\ultrasound.c</FilePath>
+            </File>
+            <File>
+              <FileName>ultrasound.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardwaer\ultrasound.h</FilePath>
+            </File>
+            <File>
+              <FileName>milk_monitor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Hardwaer\milk_monitor.c</FilePath>
+            </File>
+            <File>
+              <FileName>milk_monitor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Hardwaer\milk_monitor.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

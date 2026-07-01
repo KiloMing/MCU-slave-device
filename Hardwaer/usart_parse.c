@@ -38,7 +38,6 @@ static UART_Packet_t rx_packet;  /*!< 解析后的数据包缓存 */
 static UART_Packet_t last_packet; /*!< 上一个有效数据包缓存，用于数据赋值操作 */
 
 /* Private function prototypes -----------------------------------------------*/
-extern void USART1_Printf(const char *format, ...);
 static uint8_t UART_Validate_Packet(const uint8_t *buffer, uint8_t length);
 
 /**
@@ -176,11 +175,8 @@ void UART_Parse_Data(void)
     rx_packet.switch_two = rx_buffer[8];
     rx_packet.footer = rx_buffer[9];
 
-    /* 【预留】步骤4：数据赋值操作（暂不实现） */
-    /* 后续可在此处添加数据赋值逻辑，如： */
-
-
-
+    /* switch_one controls the pump; switch_two remains reserved. */
+    MilkMonitor_SetPumpRequest(rx_packet.switch_one != 0U);
 
 
     /* 步骤5：清除解析中标志 */

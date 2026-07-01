@@ -1,8 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"C:/Users/Administrator/Desktop/all_stm32/c8t6oled-bmq/build/Debug/cmake_install.cmake",
-		"C:/Users/Administrator/Desktop/all_stm32/c8t6oled-bmq/build/Debug/cmake/stm32cubemx/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

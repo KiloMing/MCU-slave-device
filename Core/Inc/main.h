@@ -61,6 +61,12 @@ void Error_Handler(void);
 #define SW1_GPIO_Port GPIOA
 #define SW2_Pin GPIO_PIN_5
 #define SW2_GPIO_Port GPIOA
+#define WATER_PUMP_Pin GPIO_PIN_0
+#define WATER_PUMP_GPIO_Port GPIOB
+#define ULTRASOUND_TRIG_Pin GPIO_PIN_6
+#define ULTRASOUND_TRIG_GPIO_Port GPIOB
+#define ULTRASOUND_ECHO_Pin GPIO_PIN_7
+#define ULTRASOUND_ECHO_GPIO_Port GPIOB
 #define MOTOR_LF2_Pin GPIO_PIN_11
 #define MOTOR_LF2_GPIO_Port GPIOB
 #define MOTOR_LF1_Pin GPIO_PIN_12

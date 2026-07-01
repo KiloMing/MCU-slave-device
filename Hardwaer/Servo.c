@@ -23,10 +23,11 @@ void Servo_Init(void){
 
 void Servo_SetAngle_1(uint8_t Angle)
 {
-	
-      // 限制舵机角度范围为0~270度
-    if (Angle < 0)     Angle = 0;
-    if (Angle > 256)   Angle = 256;
+    /*
+     * Angle is an 8-bit protocol field, so its valid input range is
+     * inherently 0..255. Do not compare it with 0 or 256: both checks are
+     * ineffective for uint8_t and produce Keil warnings.
+     */
 
     // 角度、脉宽转换：0度对应500us，270度对应2500us，总范围270度
     // 公式：脉宽 = 最小脉宽 + (当前角度 / 总角度范围) * (最大脉宽 - 最小脉宽)
@@ -42,7 +43,6 @@ void Servo_SetAngle_1(uint8_t Angle)
 void Servo_SetAngle_2(uint8_t Angle)
 {
 	   // 限制舵机角度范围为0~180度
-    if (Angle < 0)     Angle = 0;
     if (Angle > 180)   Angle = 180;
 
     // 角度、脉宽转换：0度对应500us，180度对应2500us，总范围180度

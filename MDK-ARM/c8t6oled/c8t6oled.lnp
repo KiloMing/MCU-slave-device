@@ -34,6 +34,9 @@
 "c8t6oled\emm_v5.o"
 "c8t6oled\hcan.o"
 "c8t6oled\tower.o"
+"c8t6oled\water_pump.o"
+"c8t6oled\ultrasound.o"
+"c8t6oled\milk_monitor.o"
 --library_type=microlib --strict --scatter "c8t6oled\c8t6oled.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

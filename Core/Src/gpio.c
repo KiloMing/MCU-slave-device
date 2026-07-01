@@ -57,6 +57,9 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOA, SW1_Pin|SW2_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, WATER_PUMP_Pin|ULTRASOUND_TRIG_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, MOTOR_LF2_Pin|MOTOR_LF1_Pin|MOTOR_LB1_Pin|MOTOR_LB2_Pin
                           |MOTOR_RF1_Pin|MOTOR_RB1_Pin|MOTOR_RB2_Pin, GPIO_PIN_RESET);
 
@@ -76,6 +79,13 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : WATER_PUMP_Pin ULTRASOUND_TRIG_Pin */
+  GPIO_InitStruct.Pin = WATER_PUMP_Pin|ULTRASOUND_TRIG_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pins : MOTOR_LF2_Pin MOTOR_LF1_Pin MOTOR_LB1_Pin MOTOR_LB2_Pin
                            MOTOR_RF1_Pin MOTOR_RB1_Pin MOTOR_RB2_Pin */

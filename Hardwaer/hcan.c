@@ -81,3 +81,4 @@ void can_SendCmd(uint8_t *cmd, uint8_t len)
         packNum++;
     }
 }
+

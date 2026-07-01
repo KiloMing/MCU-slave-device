@@ -154,8 +154,7 @@ static void State_Init_Handler(void)
     CAN_Start(CAN_NUM);
 		UART_Enable_Receive();
     Servo_Init();
-
-    printf("Init Yaw: %.2f\n",  Read_Yaw());
+    MilkMonitor_Init();
 	
     /* 初始化完成后切换到空闲任务 */
     State_Machine_Transition(STATE_IDLE);
@@ -174,6 +173,7 @@ static void State_Idle_Handler(void)
 //      printf("Init Yaw: %.2f\n",  Read_Yaw());
       float yaw = Read_Yaw();
 			mecanum_with_heading_control(motor_vx, motor_vy,target_yaw ,yaw);
+      MilkMonitor_Update();
 
 	
     /* 检测串口数据接收完成标志位 */
@@ -226,9 +226,8 @@ static void State_UART_Parse_Handler(void)
     /* 3) 解析数据包 */
     /* 4) 清除解析中标志 */
     /* 5) 重新使能接收 */
-    printf("UART_Parse_Handler\n");
- 
     UART_Parse_Data();
+    UART_Launch();
 
     /* 解析完成后返回空闲状态 */
     State_Machine_Transition(STATE_IDLE);

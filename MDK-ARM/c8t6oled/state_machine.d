@@ -1,11 +1,11 @@
 c8t6oled\state_machine.o: ..\Hardwaer\State_Machine.c
 c8t6oled\state_machine.o: ..\Hardwaer\State_Machine.h
-c8t6oled\state_machine.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-c8t6oled\state_machine.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+c8t6oled\state_machine.o: D:\KEILC51\ARM\ARMCC\Bin\..\include\stdint.h
+c8t6oled\state_machine.o: D:\KEILC51\ARM\ARMCC\Bin\..\include\stdbool.h
 c8t6oled\state_machine.o: ..\Hardwaer\hardware.h
-c8t6oled\state_machine.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-c8t6oled\state_machine.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-c8t6oled\state_machine.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+c8t6oled\state_machine.o: D:\KEILC51\ARM\ARMCC\Bin\..\include\string.h
+c8t6oled\state_machine.o: D:\KEILC51\ARM\ARMCC\Bin\..\include\stdio.h
+c8t6oled\state_machine.o: D:\KEILC51\ARM\ARMCC\Bin\..\include\stdlib.h
 c8t6oled\state_machine.o: ../Core/Inc/main.h
 c8t6oled\state_machine.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 c8t6oled\state_machine.o: ../Core/Inc/stm32f1xx_hal_conf.h
@@ -20,7 +20,7 @@ c8t6oled\state_machine.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
 c8t6oled\state_machine.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h
 c8t6oled\state_machine.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
 c8t6oled\state_machine.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-c8t6oled\state_machine.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+c8t6oled\state_machine.o: D:\KEILC51\ARM\ARMCC\Bin\..\include\stddef.h
 c8t6oled\state_machine.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h
 c8t6oled\state_machine.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h
 c8t6oled\state_machine.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h
@@ -50,4 +50,7 @@ c8t6oled\state_machine.o: ..\Hardwaer\PID.h
 c8t6oled\state_machine.o: ..\Hardwaer\State_Machine.h
 c8t6oled\state_machine.o: ..\Hardwaer\wt101.h
 c8t6oled\state_machine.o: ../Core/Inc/i2c.h
+c8t6oled\state_machine.o: ..\Hardwaer\ultrasound.h
+c8t6oled\state_machine.o: ..\Hardwaer\water_pump.h
+c8t6oled\state_machine.o: ..\Hardwaer\milk_monitor.h
 c8t6oled\state_machine.o: ..\Hardwaer\usart_parse.h
