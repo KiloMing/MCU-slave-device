@@ -1,25 +1,101 @@
 /**
  ******************************************************************************
  * @file    WT101.c
- * @brief   WT101 yaw register driver
- * @pin_resources PB6=SCL, PB7=SDA; @peripherals I2C1
- * @function Reads register 0x3F at address 0x50 and converts yaw to degrees.
- * @purpose Independent WT101 migration and bench validation.
- * @migration Source: src/Hardwaer/wt101.c; protocol, byte order and formula unchanged.
+ * @brief   HWT101 raw UART-frame driver
+ * @pin_resources PB6=USART1_TX, PB7=USART1_RX; @peripherals remapped USART1
+ * @function Receives 11-byte frames beginning with 0x55 and verifies checksum.
+ * @purpose Independent HWT101 serial-output and bench validation.
+ * @migration USART1 is remapped from PA9/PA10 to avoid the board's MAX232 circuit.
  ******************************************************************************
  */
 #include "WT101.h"
-#include "I2C.h"
-#define WT101_ADDR_7BIT 0x50U
-#define WT101_YAW_REG  0x3FU
-float WT101_ReadYaw(void)
+
+UART_HandleTypeDef huart1;
+
+void WT101_UART_Init(uint32_t baud_rate)
 {
-    uint8_t data[2] = {0U, 0U};
-    uint16_t raw;
-    if (HAL_I2C_Mem_Read(&hi2c1, (WT101_ADDR_7BIT << 1), WT101_YAW_REG,
-                        I2C_MEMADD_SIZE_8BIT, data, 2U, 100U) != HAL_OK) {
-        return 0.0f;
+    GPIO_InitTypeDef gpio = {0};
+
+    __HAL_RCC_AFIO_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_USART1_CLK_ENABLE();
+    __HAL_AFIO_REMAP_USART1_ENABLE();
+
+    gpio.Pin = GPIO_PIN_6;
+    gpio.Mode = GPIO_MODE_AF_PP;
+    gpio.Pull = GPIO_NOPULL;
+    gpio.Speed = GPIO_SPEED_FREQ_HIGH;
+    HAL_GPIO_Init(GPIOB, &gpio);
+
+    gpio.Pin = GPIO_PIN_7;
+    gpio.Mode = GPIO_MODE_INPUT;
+    gpio.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOB, &gpio);
+
+    huart1.Instance = USART1;
+    huart1.Init.BaudRate = baud_rate;
+    huart1.Init.WordLength = UART_WORDLENGTH_8B;
+    huart1.Init.StopBits = UART_STOPBITS_1;
+    huart1.Init.Parity = UART_PARITY_NONE;
+    huart1.Init.Mode = UART_MODE_TX_RX;
+    huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+    huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+    (void)HAL_UART_Init(&huart1);
+}
+
+HAL_StatusTypeDef WT101_UART_ReadFrame(uint8_t frame[WT101_UART_FRAME_SIZE],
+                                      uint32_t timeout_ms)
+{
+    HAL_StatusTypeDef status;
+    uint8_t byte = 0U;
+    uint32_t start_tick;
+    uint32_t elapsed;
+
+    if (frame == NULL)
+    {
+        return HAL_ERROR;
     }
-    raw = (uint16_t)data[0] | ((uint16_t)data[1] << 8);
-    return ((float)raw / 32768.0f) * 180.0f;
+
+    start_tick = HAL_GetTick();
+    do
+    {
+        elapsed = HAL_GetTick() - start_tick;
+        if (elapsed >= timeout_ms)
+        {
+            return HAL_TIMEOUT;
+        }
+
+        status = HAL_UART_Receive(&huart1,
+                                  &byte,
+                                  1U,
+                                  timeout_ms - elapsed);
+        if (status != HAL_OK)
+        {
+            return status;
+        }
+    } while (byte != 0x55U);
+
+    frame[0] = byte;
+    return HAL_UART_Receive(&huart1,
+                            &frame[1],
+                            WT101_UART_FRAME_SIZE - 1U,
+                            20U);
+}
+
+uint8_t WT101_UART_ChecksumOK(const uint8_t frame[WT101_UART_FRAME_SIZE])
+{
+    uint8_t sum = 0U;
+    uint32_t index;
+
+    if (frame == NULL)
+    {
+        return 0U;
+    }
+
+    for (index = 0U; index < (WT101_UART_FRAME_SIZE - 1U); index++)
+    {
+        sum = (uint8_t)(sum + frame[index]);
+    }
+
+    return (sum == frame[WT101_UART_FRAME_SIZE - 1U]) ? 1U : 0U;
 }

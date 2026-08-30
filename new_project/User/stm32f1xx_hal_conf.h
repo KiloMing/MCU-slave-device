@@ -29,9 +29,9 @@ extern "C" {
 
 #include "stm32f1xx_hal_rcc.h"
 #include "stm32f1xx_hal_gpio.h"
+#include "stm32f1xx_hal_dma.h"
 #include "stm32f1xx_hal_i2c.h"
 #include "stm32f1xx_hal_cortex.h"
-#include "stm32f1xx_hal_dma.h"
 #include "stm32f1xx_hal_flash.h"
 #include "stm32f1xx_hal_tim.h"
 #include "stm32f1xx_hal_uart.h"

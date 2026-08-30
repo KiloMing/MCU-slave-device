@@ -1,30 +1,32 @@
 /**
  ******************************************************************************
  * @file    main.c
- * @brief   Selectable HAL test entry for USART2, motors and WT101
+ * @brief   Isolated HAL test entry forwarding HWT101 UART frames through USART2
  *
  * @pin_resources
  *   - UART: PA2 TX, PA3 RX, PA6 RS485 DE, PA7 RS485 /RE.
  *   - Motor PWM: PA0, PA1, PA8 and PA11.
  *   - Motor direction: PA4, PB3, PB4, PB5, PB12, PB13, PB14 and PB15.
- *   - WT101 I2C: PB6 SCL and PB7 SDA.
+ *   - HWT101 UART: PB6 USART1_TX and PB7 USART1_RX after USART1 remap.
  *   - PA13 : SWDIO, reserved for programming and debugging.
  *   - PA14 : SWCLK, reserved for programming and debugging.
  *
  * @peripherals
- *   - RCC, SysTick, USART2, TIM1, TIM2, GPIOA, GPIOB and AFIO.
+ *   - RCC, SysTick, USART1, USART2, TIM1, TIM2, GPIOA, GPIOB and AFIO.
  *
  * @function
  *   - UART mode: sends the verified ready text, then echoes received bytes.
  *   - Motor mode: PWM 500 forward 10 s, reverse 10 s, continuously.
+ *   - WT101 mode: forwards 11-byte raw frames and checksum state through USART2.
  *
  * @purpose
- *   - Independently verifies upper-computer TTL and four-wheel motor hardware.
+ *   - Independently verifies HWT101 UART acquisition and TTL debug output.
  *
  * @migration
  *   - Sources: verified E:\project_M\test_p UART and motor tests.
- *   - Unchanged: 115200 8N1, PWM 500 and 10-second direction intervals.
- *   - APP_TEST_MODE currently selects the isolated four-motor test.
+ *   - HWT101 input and USART2 debug output: 115200 8N1 on separate UARTs.
+ *   - Unchanged: PWM 500 and 10-second direction intervals.
+ *   - APP_TEST_MODE currently selects the isolated WT101 test.
  ******************************************************************************
  */
 

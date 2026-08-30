@@ -19,12 +19,15 @@
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc_ex.h
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_gpio.h
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_gpio_ex.h
-.\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_cortex.h
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_dma.h
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_dma_ex.h
+.\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_i2c.h
+.\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_cortex.h
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash.h
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h
 .\objects\app_test.o: .\Hardware\UART.h
+.\objects\app_test.o: .\Hardware\WT101.h
+.\objects\app_test.o: E:\K\ARM\ARMCC\Bin\..\include\stdio.h
