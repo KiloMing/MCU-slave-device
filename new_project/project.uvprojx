@@ -426,6 +426,11 @@
               <FilePath>.\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio.c</FilePath>
             </File>
             <File>
+              <FileName>stm32f1xx_hal_i2c.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_i2c.c</FilePath>
+            </File>
+            <File>
               <FileName>stm32f1xx_hal_rcc.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc.c</FilePath>
@@ -499,6 +504,26 @@
               <FileName>Motor.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Hardware\Motor.h</FilePath>
+            </File>
+            <File>
+              <FileName>I2C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\I2C.c</FilePath>
+            </File>
+            <File>
+              <FileName>I2C.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\I2C.h</FilePath>
+            </File>
+            <File>
+              <FileName>WT101.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\WT101.c</FilePath>
+            </File>
+            <File>
+              <FileName>WT101.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\WT101.h</FilePath>
             </File>
           </Files>
         </Group>

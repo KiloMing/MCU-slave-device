@@ -1,12 +1,13 @@
 /**
  ******************************************************************************
  * @file    main.c
- * @brief   Selectable HAL test entry for USART2 TTL and four chassis motors
+ * @brief   Selectable HAL test entry for USART2, motors and WT101
  *
  * @pin_resources
  *   - UART: PA2 TX, PA3 RX, PA6 RS485 DE, PA7 RS485 /RE.
  *   - Motor PWM: PA0, PA1, PA8 and PA11.
  *   - Motor direction: PA4, PB3, PB4, PB5, PB12, PB13, PB14 and PB15.
+ *   - WT101 I2C: PB6 SCL and PB7 SDA.
  *   - PA13 : SWDIO, reserved for programming and debugging.
  *   - PA14 : SWCLK, reserved for programming and debugging.
  *
@@ -52,8 +53,14 @@ int main(void)
     {
         App_Test_Motor_RunCycle();
     }
+#elif APP_TEST_MODE == APP_TEST_WT101
+    App_Test_WT101_Init();
+    while (1)
+    {
+        App_Test_WT101_RunStep();
+    }
 #else
-#error "APP_TEST_MODE must be APP_TEST_UART or APP_TEST_MOTOR"
+#error "APP_TEST_MODE must be APP_TEST_UART, APP_TEST_MOTOR or APP_TEST_WT101"
 #endif
 }
 

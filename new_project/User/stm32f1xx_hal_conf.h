@@ -10,6 +10,7 @@ extern "C" {
 #define HAL_DMA_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
 #define HAL_GPIO_MODULE_ENABLED
+#define HAL_I2C_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
 #define HAL_TIM_MODULE_ENABLED
 #define HAL_UART_MODULE_ENABLED
@@ -28,6 +29,7 @@ extern "C" {
 
 #include "stm32f1xx_hal_rcc.h"
 #include "stm32f1xx_hal_gpio.h"
+#include "stm32f1xx_hal_i2c.h"
 #include "stm32f1xx_hal_cortex.h"
 #include "stm32f1xx_hal_dma.h"
 #include "stm32f1xx_hal_flash.h"

@@ -26,7 +26,10 @@
 
 #include "Motor.h"
 #include "UART.h"
+#include "I2C.h"
+#include "WT101.h"
 #include "stm32f1xx_hal.h"
+#include <stdio.h>
 
 void App_Test_UART_Init(void)
 {
@@ -51,4 +54,24 @@ void App_Test_Motor_RunCycle(void)
     HAL_Delay(10000U);
     motor_all_set(-500);
     HAL_Delay(10000U);
+}
+
+void App_Test_WT101_Init(void)
+{
+    MX_I2C1_Init();
+    UART_Init(115200U);
+    UART_SendString("WT101 I2C TEST READY\r\n");
+}
+
+void App_Test_WT101_RunStep(void)
+{
+    char line[48];
+    float yaw = WT101_ReadYaw();
+    {
+        int32_t centideg = (int32_t)(yaw * 100.0f);
+        (void)snprintf(line, sizeof(line), "YAW=%ld.%02ld\r\n",
+                       (long)(centideg / 100), (long)(centideg % 100));
+    }
+    UART_SendString(line);
+    HAL_Delay(100U);
 }

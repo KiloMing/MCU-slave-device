@@ -29,14 +29,17 @@
 
 #define APP_TEST_UART  1U
 #define APP_TEST_MOTOR 2U
+#define APP_TEST_WT101 3U
 
 #ifndef APP_TEST_MODE
-#define APP_TEST_MODE APP_TEST_MOTOR
+#define APP_TEST_MODE APP_TEST_WT101
 #endif
 
 void App_Test_UART_Init(void);
 void App_Test_UART_ProcessByte(void);
 void App_Test_Motor_Init(void);
 void App_Test_Motor_RunCycle(void);
+void App_Test_WT101_Init(void);
+void App_Test_WT101_RunStep(void);
 
 #endif
