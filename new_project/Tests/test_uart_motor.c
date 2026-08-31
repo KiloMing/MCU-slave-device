@@ -31,6 +31,7 @@ GPIO_TypeDef test_gpiob = {2U};
 uint32_t test_tim1_instance;
 uint32_t test_tim2_instance;
 uint32_t test_usart2_instance;
+uint32_t test_usart1_instance;
 
 static GPIO_PinState gpioa_state[16];
 static GPIO_PinState gpiob_state[16];
@@ -173,6 +174,18 @@ HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *data,
     }
     *data = uart_rx_value;
     return HAL_OK;
+}
+
+void HAL_NVIC_SetPriority(int irq, uint32_t priority, uint32_t subpriority)
+{
+    (void)irq;
+    (void)priority;
+    (void)subpriority;
+}
+
+void HAL_NVIC_EnableIRQ(int irq)
+{
+    (void)irq;
 }
 
 HAL_StatusTypeDef HAL_TIM_PWM_Init(TIM_HandleTypeDef *htim)
@@ -329,11 +342,31 @@ static void test_motor_preserves_four_wheel_test_behavior(void)
     expect_all_pwm(999U);
 }
 
+static void test_original_mecanum_calculation_is_unchanged(void)
+{
+    mecanum_move(100, 20, 30.0f);
+    expect_u32(tim2_compare[TIM_CHANNEL_1], 110U, "LF=vx-vy+omega");
+    expect_u32(tim1_compare[TIM_CHANNEL_1], 90U, "RF=vx+vy-omega");
+    expect_u32(tim2_compare[TIM_CHANNEL_2], 150U, "LB=vx+vy+omega");
+    expect_u32(tim1_compare[TIM_CHANNEL_4], 50U, "RB=vx-vy-omega");
+
+    mecanum_with_heading_control(100U, 20U, 10.0f, 0.0f);
+    expect_u32(tim2_compare[TIM_CHANNEL_1], 240U, "LF receives original PID output");
+    expect_u32(tim1_compare[TIM_CHANNEL_1], 40U, "RF receives signed PID output");
+    expect_u32(tim2_compare[TIM_CHANNEL_2], 280U, "LB receives original PID output");
+    expect_u32(tim1_compare[TIM_CHANNEL_4], 80U, "RB receives signed PID output");
+    expect_u32(read_pin(GPIOB, GPIO_PIN_15), GPIO_PIN_RESET, "RF PID result is negative");
+    expect_u32(read_pin(GPIOA, GPIO_PIN_4), GPIO_PIN_SET, "RF reverse direction retained");
+    expect_u32(read_pin(GPIOB, GPIO_PIN_3), GPIO_PIN_RESET, "RB PID result is negative");
+    expect_u32(read_pin(GPIOB, GPIO_PIN_4), GPIO_PIN_SET, "RB reverse direction retained");
+}
+
 int main(void)
 {
     test_uart_uses_verified_ttl_configuration();
     test_uart_sends_and_receives_original_bytes();
     test_motor_preserves_four_wheel_test_behavior();
+    test_original_mecanum_calculation_is_unchanged();
     puts("PASS: UART and motor migration behavior");
     return 0;
 }

@@ -30,4 +30,5 @@
 .\objects\app_test.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h
 .\objects\app_test.o: .\Hardware\UART.h
 .\objects\app_test.o: .\Hardware\WT101.h
+.\objects\app_test.o: .\Hardware\UpperComputer.h
 .\objects\app_test.o: E:\K\ARM\ARMCC\Bin\..\include\stdio.h

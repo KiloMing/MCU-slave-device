@@ -7,7 +7,7 @@
  *   - No direct GPIO resources.
  *
  * @peripherals
- *   - Cortex-M3 core exceptions and SysTick.
+ *   - Cortex-M3 core exceptions, SysTick and USART2.
  *
  * @function
  *   - Declares the interrupt handlers required by the startup file.
@@ -39,6 +39,7 @@ void SVC_Handler(void);
 void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
+void USART2_IRQHandler(void);
 
 #ifdef __cplusplus
 }

@@ -26,7 +26,7 @@
  *   - Sources: verified E:\project_M\test_p UART and motor tests.
  *   - HWT101 input and USART2 debug output: 115200 8N1 on separate UARTs.
  *   - Unchanged: PWM 500 and 10-second direction intervals.
- *   - APP_TEST_MODE currently selects the isolated WT101 test.
+ *   - APP_TEST_MODE selects the integrated UART/WT101/PID chassis test.
  ******************************************************************************
  */
 
@@ -61,8 +61,14 @@ int main(void)
     {
         App_Test_WT101_RunStep();
     }
+#elif APP_TEST_MODE == APP_TEST_CONTROL
+    App_Test_Control_Init();
+    while (1)
+    {
+        App_Test_Control_RunStep();
+    }
 #else
-#error "APP_TEST_MODE must be APP_TEST_UART, APP_TEST_MOTOR or APP_TEST_WT101"
+#error "APP_TEST_MODE selection is invalid"
 #endif
 }
 

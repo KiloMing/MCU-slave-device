@@ -13,14 +13,14 @@
  *   - Remapped USART1, USART2, TIM1, TIM2, GPIO and SysTick.
  *
  * @function
- *   - Provides finite initialization and processing steps for each test mode.
+ *   - Provides isolated tests plus the integrated UART/WT101/PID control step.
  *
  * @purpose
- *   - Keeps UART and motor tests isolated while making their behavior testable.
+ *   - Runs the staged migration without changing command or control values.
  *
  * @migration
  *   - Sources: verified test_p UART and four-motor test loops.
- *   - Selected: HWT101 raw UART frames are the current isolated power-on test.
+ *   - Selected: integrated upper-computer, HWT101, PID and four-motor control.
  *   - Unchanged: motor speeds, motor timing and USART2 debug interface.
  *   - HWT101 input and debug output both use 115200 8N1 on separate UARTs.
  *   - Current output: hexadecimal 11-byte frames with checksum status.
@@ -33,9 +33,10 @@
 #define APP_TEST_UART  1U
 #define APP_TEST_MOTOR 2U
 #define APP_TEST_WT101 3U
+#define APP_TEST_CONTROL 4U
 
 #ifndef APP_TEST_MODE
-#define APP_TEST_MODE APP_TEST_WT101
+#define APP_TEST_MODE APP_TEST_CONTROL
 #endif
 
 void App_Test_UART_Init(void);
@@ -44,5 +45,7 @@ void App_Test_Motor_Init(void);
 void App_Test_Motor_RunCycle(void);
 void App_Test_WT101_Init(void);
 void App_Test_WT101_RunStep(void);
+void App_Test_Control_Init(void);
+void App_Test_Control_RunStep(void);
 
 #endif

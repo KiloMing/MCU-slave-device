@@ -27,3 +27,4 @@
 .\objects\stm32f1xx_it.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h
 .\objects\stm32f1xx_it.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h
 .\objects\stm32f1xx_it.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h
+.\objects\stm32f1xx_it.o: .\Hardware\UART.h

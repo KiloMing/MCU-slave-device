@@ -7,7 +7,7 @@
  *   - No direct GPIO resources.
  *
  * @peripherals
- *   - Cortex-M3 core exceptions and SysTick.
+ *   - Cortex-M3 core exceptions, SysTick and USART2.
  *
  * @function
  *   - Handles core exceptions and advances the HAL tick from SysTick.
@@ -22,6 +22,7 @@
  */
 
 #include "stm32f1xx_it.h"
+#include "UART.h"
 
 void NMI_Handler(void)
 {
@@ -70,4 +71,9 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
     HAL_IncTick();
+}
+
+void USART2_IRQHandler(void)
+{
+    HAL_UART_IRQHandler(&huart2);
 }

@@ -525,6 +525,26 @@
               <FileType>5</FileType>
               <FilePath>.\Hardware\WT101.h</FilePath>
             </File>
+            <File>
+              <FileName>Mulun.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\Mulun.c</FilePath>
+            </File>
+            <File>
+              <FileName>Mulun.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\Mulun.h</FilePath>
+            </File>
+            <File>
+              <FileName>UpperComputer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\UpperComputer.c</FilePath>
+            </File>
+            <File>
+              <FileName>UpperComputer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\UpperComputer.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

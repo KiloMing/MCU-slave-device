@@ -26,7 +26,9 @@
 typedef enum
 {
     HAL_OK = 0,
-    HAL_ERROR = 1
+    HAL_ERROR = 1,
+    HAL_BUSY = 2,
+    HAL_TIMEOUT = 3
 } HAL_StatusTypeDef;
 
 typedef struct
@@ -103,12 +105,15 @@ extern GPIO_TypeDef test_gpiob;
 extern uint32_t test_tim1_instance;
 extern uint32_t test_tim2_instance;
 extern uint32_t test_usart2_instance;
+extern uint32_t test_usart1_instance;
 
 #define GPIOA (&test_gpioa)
 #define GPIOB (&test_gpiob)
 #define TIM1 ((void *)&test_tim1_instance)
 #define TIM2 ((void *)&test_tim2_instance)
 #define USART2 ((void *)&test_usart2_instance)
+#define USART1 ((void *)&test_usart1_instance)
+#define USART2_IRQn 38
 
 #define GPIO_PIN_0  ((uint16_t)0x0001U)
 #define GPIO_PIN_1  ((uint16_t)0x0002U)
@@ -158,10 +163,12 @@ extern uint32_t test_usart2_instance;
 #define __HAL_RCC_GPIOB_CLK_ENABLE() ((void)0)
 #define __HAL_RCC_AFIO_CLK_ENABLE() ((void)0)
 #define __HAL_RCC_USART2_CLK_ENABLE() ((void)0)
+#define __HAL_RCC_USART1_CLK_ENABLE() ((void)0)
 #define __HAL_RCC_TIM1_CLK_ENABLE() ((void)0)
 #define __HAL_RCC_TIM2_CLK_ENABLE() ((void)0)
 void Test_HAL_SwjNoJtag(void);
 #define __HAL_AFIO_REMAP_SWJ_NOJTAG() Test_HAL_SwjNoJtag()
+#define __HAL_AFIO_REMAP_USART1_ENABLE() ((void)0)
 
 void HAL_GPIO_Init(GPIO_TypeDef *port, GPIO_InitTypeDef *init);
 void HAL_GPIO_WritePin(GPIO_TypeDef *port, uint16_t pin, GPIO_PinState state);
@@ -170,6 +177,12 @@ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *data,
                                    uint16_t length, uint32_t timeout);
 HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *data,
                                   uint16_t length, uint32_t timeout);
+HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *data,
+                                     uint16_t length);
+void HAL_UART_IRQHandler(UART_HandleTypeDef *huart);
+void HAL_NVIC_SetPriority(int irq, uint32_t priority, uint32_t subpriority);
+void HAL_NVIC_EnableIRQ(int irq);
+uint32_t HAL_GetTick(void);
 HAL_StatusTypeDef HAL_TIM_PWM_Init(TIM_HandleTypeDef *htim);
 HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
                                                         TIM_MasterConfigTypeDef *config);

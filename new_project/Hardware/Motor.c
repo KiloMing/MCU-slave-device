@@ -14,7 +14,8 @@
  *   - TIM1 CH1/CH4, TIM2 CH1/CH2, GPIOA, GPIOB and AFIO.
  *
  * @function
- *   - Produces four 0..999 PWM values and signed direction control.
+ *   - Produces four 0..999 PWM values, signed direction control and original
+ *     Mecanum-wheel kinematic/PID distribution.
  *
  * @purpose
  *   - Reproduces the completed four-motor open-loop chassis test on HAL.
@@ -27,6 +28,7 @@
  */
 
 #include "Motor.h"
+#include "Mulun.h"
 
 #define MOTOR_PWM_PERIOD 999U
 #define MOTOR_PWM_PRESCALER 6U
@@ -50,6 +52,8 @@
 #define RB_DIR_HIGH_PIN  GPIO_PIN_3
 #define RB_DIR_LOW_PORT  GPIOB
 #define RB_DIR_LOW_PIN   GPIO_PIN_4
+
+static PID_Mulun_HandleTypeDef mulun_pid;
 
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
@@ -157,6 +161,7 @@ static void Motor_ConfigGpio(void)
 
 void Motor_Init(void)
 {
+    PID_Mulun_Init(&mulun_pid);
     Motor_ConfigGpio();
     __HAL_RCC_TIM1_CLK_ENABLE();
     __HAL_RCC_TIM2_CLK_ENABLE();
@@ -225,4 +230,24 @@ void motor_all_set(int32_t speed)
     Motor_LB_SetSpeed(speed);
     Motor_RF_SetSpeed(speed);
     Motor_RB_SetSpeed(speed);
+}
+
+void mecanum_move(int32_t vx, int32_t vy, float omega)
+{
+    int32_t speed_lf = vx - vy + omega;
+    int32_t speed_rf = vx + vy - omega;
+    int32_t speed_lb = vx + vy + omega;
+    int32_t speed_rb = vx - vy - omega;
+
+    Motor_LF_SetSpeed(speed_lf);
+    Motor_RF_SetSpeed(speed_rf);
+    Motor_LB_SetSpeed(speed_lb);
+    Motor_RB_SetSpeed(speed_rb);
+}
+
+void mecanum_with_heading_control(uint16_t vx, uint16_t vy,
+                                  float requested_yaw, float current_yaw)
+{
+    float pid_data = PID_Mulun_Calc(&mulun_pid, requested_yaw, current_yaw);
+    mecanum_move(vx, vy, pid_data);
 }

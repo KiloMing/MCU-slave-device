@@ -13,7 +13,8 @@
  *   - TIM1, TIM2, GPIOA, GPIOB and AFIO.
  *
  * @function
- *   - Initializes four PWM outputs and controls signed wheel speeds.
+ *   - Initializes four PWM outputs, controls signed speeds and performs
+ *     the original Mecanum-wheel heading calculation.
  *
  * @purpose
  *   - Drives the four chassis motors through the D24A board.
@@ -41,5 +42,8 @@ void Motor_LF_SetSpeed(int32_t speed);
 void Motor_LB_SetSpeed(int32_t speed);
 void Motor_RF_SetSpeed(int32_t speed);
 void Motor_RB_SetSpeed(int32_t speed);
+void mecanum_move(int32_t vx, int32_t vy, float omega);
+void mecanum_with_heading_control(uint16_t vx, uint16_t vy,
+                                  float target_yaw, float current_yaw);
 
 #endif

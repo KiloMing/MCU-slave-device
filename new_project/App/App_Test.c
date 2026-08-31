@@ -1,7 +1,7 @@
 /**
  ******************************************************************************
  * @file    App_Test.c
- * @brief   Selectable UART, motor and WT101 migration-test behavior
+ * @brief   Selectable subsystem tests and integrated chassis control
  *
  * @pin_resources
  *   - UART: PA2, PA3, PA6 and PA7 through UART.c.
@@ -12,15 +12,15 @@
  *   - Remapped USART1, USART2, TIM1, TIM2 and SysTick through HAL.
  *
  * @function
- *   - Runs an isolated UART, motor or WT101 migration test.
+ *   - Runs isolated tests or the complete receive/heading/motor data flow.
  *
  * @purpose
- *   - Keeps the verified subsystems isolated during staged HAL migration.
+ *   - Connects verified subsystems while retaining their original values.
  *
  * @migration
  *   - Sources: E:\project_M\test_p verified UART and motor test entries.
  *   - HWT101: receives original 11-byte 115200 8N1 frames without conversion.
- *   - Current test: forwards every raw frame as hexadecimal through USART2.
+ *   - Current mode: receives commands and signed yaw, then applies original PID.
  *   - Waits 1000 ms after initialization before receiving sensor data.
  ******************************************************************************
  */
@@ -30,6 +30,7 @@
 #include "Motor.h"
 #include "UART.h"
 #include "WT101.h"
+#include "UpperComputer.h"
 #include "stm32f1xx_hal.h"
 #include <stdio.h>
 
@@ -97,5 +98,30 @@ void App_Test_WT101_RunStep(void)
         UART_SendString("HWT UART ERR=");
         UART_SendString(byte_text);
         UART_SendString("\r\n");
+    }
+}
+
+void App_Test_Control_Init(void)
+{
+    UART_Init(115200U);
+    WT101_UART_Init(WT101_UART_BAUD_RATE);
+    Motor_Init();
+    UART_Enable_Receive();
+}
+
+void App_Test_Control_RunStep(void)
+{
+    float current_yaw;
+
+    if (rx_complete_flag != 0U)
+    {
+        UART_Parse_Data();
+        UART_Launch();
+    }
+
+    if (WT101_UART_ReadYaw(&current_yaw, 500U) == HAL_OK)
+    {
+        mecanum_with_heading_control(motor_vx, motor_vy,
+                                     target_yaw, current_yaw);
     }
 }

@@ -14,7 +14,7 @@
  *
  * @function
  *   - Configures USART2 as 8 data bits, no parity, one stop bit.
- *   - Sends and receives data with blocking HAL calls.
+ *   - Supports original interrupt reception plus blocking diagnostics.
  *
  * @purpose
  *   - Connects the STM32 board directly to the upper computer through USB-TTL.
@@ -65,6 +65,9 @@ void UART_Init(uint32_t BaudRate)
     huart2.Init.HwFlowCtl = UART_HWCONTROL_NONE;
     huart2.Init.OverSampling = UART_OVERSAMPLING_16;
     (void)HAL_UART_Init(&huart2);
+
+    HAL_NVIC_SetPriority(USART2_IRQn, 1U, 0U);
+    HAL_NVIC_EnableIRQ(USART2_IRQn);
 }
 
 void UART_SendByte(uint8_t Byte)

@@ -1,7 +1,7 @@
 /**
  ******************************************************************************
  * @file    UART.h
- * @brief   USART2 TTL blocking communication interface
+ * @brief   USART2 TTL communication interface
  *
  * @pin_resources
  *   - PA2 : USART2_TX, TTL output to USB-TTL RXD.
@@ -13,10 +13,10 @@
  *   - USART2, GPIOA and APB1/APB2 clocks.
  *
  * @function
- *   - Initializes 8N1 USART2 and provides blocking byte/string transfer.
+ *   - Initializes 8N1 USART2, its receive interrupt, and blocking diagnostics.
  *
  * @purpose
- *   - Preserves the verified direct-TTL upper-computer communication baseline.
+ *   - Carries the original upper-computer packet on the verified TTL pins.
  *
  * @migration
  *   - Source: E:\project_M\test_p\Hardware\UART.h from Git commit 53ca0a6.
