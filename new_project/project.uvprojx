@@ -560,6 +560,16 @@
               <FileType>5</FileType>
               <FilePath>.\App\App_Test.h</FilePath>
             </File>
+            <File>
+              <FileName>buleteethtest.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\App\buleteethtest.c</FilePath>
+            </File>
+            <File>
+              <FileName>buleteethtest.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\App\buleteethtest.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

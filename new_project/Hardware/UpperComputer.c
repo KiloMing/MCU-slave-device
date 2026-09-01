@@ -24,6 +24,33 @@ uint16_t motor_vy = 0U;
 float target_yaw = 0.0f;
 
 static UART_Packet_t rx_packet;
+static uint8_t UART_Validate_Packet(const uint8_t *buffer, uint8_t length);
+
+static void UpperComputer_ReceiveByte(uint8_t byte)
+{
+    if ((parsing_in_progress != 0U) || (rx_complete_flag != 0U))
+    {
+        return;
+    }
+
+    rx_data = byte;
+    rx_buffer[rx_cnt++] = rx_data;
+    if (rx_cnt >= UART_PACKET_LENGTH)
+    {
+        if (UART_Validate_Packet(rx_buffer, rx_cnt) != 0U)
+        {
+            rx_complete_flag = 1U;
+        }
+        else
+        {
+            rx_cnt = 0U;
+        }
+    }
+    else if (rx_cnt >= sizeof(rx_buffer))
+    {
+        rx_cnt = 0U;
+    }
+}
 
 static uint8_t UART_Validate_Packet(const uint8_t *buffer, uint8_t length)
 {
@@ -46,46 +73,12 @@ void UART_Enable_Receive(void)
 {
     rx_complete_flag = 0U;
     rx_cnt = 0U;
-    (void)HAL_UART_Receive_IT(&huart2, &rx_data, 1U);
+    UART_StartReceiveIT(UpperComputer_ReceiveByte);
 }
 
 void UART_Disable_Receive(void)
 {
     parsing_in_progress = 1U;
-}
-
-void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
-{
-    if (huart->Instance == USART2)
-    {
-        if (parsing_in_progress != 0U)
-        {
-            (void)HAL_UART_Receive_IT(&huart2, &rx_data, 1U);
-            return;
-        }
-
-        rx_buffer[rx_cnt++] = rx_data;
-        if (rx_cnt >= UART_PACKET_LENGTH)
-        {
-            if (UART_Validate_Packet(rx_buffer, rx_cnt) != 0U)
-            {
-                rx_complete_flag = 1U;
-            }
-            else
-            {
-                rx_cnt = 0U;
-            }
-        }
-        else if (rx_cnt >= sizeof(rx_buffer))
-        {
-            rx_cnt = 0U;
-        }
-
-        if (rx_complete_flag == 0U)
-        {
-            (void)HAL_UART_Receive_IT(&huart2, &rx_data, 1U);
-        }
-    }
 }
 
 void UART_Parse_Data(void)
@@ -109,7 +102,6 @@ void UART_Parse_Data(void)
     parsing_in_progress = 0U;
     rx_cnt = 0U;
     rx_complete_flag = 0U;
-    (void)HAL_UART_Receive_IT(&huart2, &rx_data, 1U);
 }
 
 void UART_Launch(void)

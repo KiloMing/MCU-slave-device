@@ -245,6 +245,38 @@ void mecanum_move(int32_t vx, int32_t vy, float omega)
     Motor_RB_SetSpeed(speed_rb);
 }
 
+void mecanum_move_limited(int32_t vx, int32_t vy, float omega,
+                          int32_t pwm_limit)
+{
+    int32_t speed_lf = vx - vy + omega;
+    int32_t speed_rf = vx + vy - omega;
+    int32_t speed_lb = vx + vy + omega;
+    int32_t speed_rb = vx - vy - omega;
+
+    if (pwm_limit < 0)
+    {
+        pwm_limit = -pwm_limit;
+    }
+    if (pwm_limit > 999)
+    {
+        pwm_limit = 999;
+    }
+
+    if (speed_lf > pwm_limit) speed_lf = pwm_limit;
+    if (speed_lf < -pwm_limit) speed_lf = -pwm_limit;
+    if (speed_rf > pwm_limit) speed_rf = pwm_limit;
+    if (speed_rf < -pwm_limit) speed_rf = -pwm_limit;
+    if (speed_lb > pwm_limit) speed_lb = pwm_limit;
+    if (speed_lb < -pwm_limit) speed_lb = -pwm_limit;
+    if (speed_rb > pwm_limit) speed_rb = pwm_limit;
+    if (speed_rb < -pwm_limit) speed_rb = -pwm_limit;
+
+    Motor_LF_SetSpeed(speed_lf);
+    Motor_RF_SetSpeed(speed_rf);
+    Motor_LB_SetSpeed(speed_lb);
+    Motor_RB_SetSpeed(speed_rb);
+}
+
 void mecanum_with_heading_control(uint16_t vx, uint16_t vy,
                                   float requested_yaw, float current_yaw)
 {

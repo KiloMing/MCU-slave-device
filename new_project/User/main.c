@@ -1,13 +1,14 @@
 /**
  ******************************************************************************
  * @file    main.c
- * @brief   Isolated HAL test entry forwarding HWT101 UART frames through USART2
+ * @brief   Selectable HAL migration-test entry
  *
  * @pin_resources
  *   - UART: PA2 TX, PA3 RX, PA6 RS485 DE, PA7 RS485 /RE.
  *   - Motor PWM: PA0, PA1, PA8 and PA11.
  *   - Motor direction: PA4, PB3, PB4, PB5, PB12, PB13, PB14 and PB15.
  *   - HWT101 UART: PB6 USART1_TX and PB7 USART1_RX after USART1 remap.
+ *   - Bluetooth activity LED: PC13 output to an external LED through 510 ohm.
  *   - PA13 : SWDIO, reserved for programming and debugging.
  *   - PA14 : SWCLK, reserved for programming and debugging.
  *
@@ -18,20 +19,22 @@
  *   - UART mode: sends the verified ready text, then echoes received bytes.
  *   - Motor mode: PWM 500 forward 10 s, reverse 10 s, continuously.
  *   - WT101 mode: forwards 11-byte raw frames and checksum state through USART2.
+ *   - Bluetooth mode: maps joystick packets directly to Mecanum chassis motion.
  *
  * @purpose
- *   - Independently verifies HWT101 UART acquisition and TTL debug output.
+ *   - Independently verifies each migrated interface and chassis function.
  *
  * @migration
  *   - Sources: verified E:\project_M\test_p UART and motor tests.
  *   - HWT101 input and USART2 debug output: 115200 8N1 on separate UARTs.
  *   - Unchanged: PWM 500 and 10-second direction intervals.
- *   - APP_TEST_MODE selects the integrated UART/WT101/PID chassis test.
+ *   - Default Bluetooth mode does not use WT101, attitude calculation or PID.
  ******************************************************************************
  */
 
 #include "stm32f1xx_hal.h"
 #include "App_Test.h"
+#include "buleteethtest.h"
 
 static void SystemClock_Config(void);
 static void Error_Handler(void);
@@ -66,6 +69,12 @@ int main(void)
     while (1)
     {
         App_Test_Control_RunStep();
+    }
+#elif APP_TEST_MODE == APP_TEST_BLUETOOTH
+    BluetoothTest_Init();
+    while (1)
+    {
+        BluetoothTest_RunStep();
     }
 #else
 #error "APP_TEST_MODE selection is invalid"

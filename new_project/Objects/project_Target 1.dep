@@ -351,7 +351,7 @@ I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h)(0x6A390362)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6A90F297)
-F (.\User\main.c)(0x6A95795C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\User\main.c)(0x6A96B5FF)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6A390362)
 I (.\User\stm32f1xx_hal_conf.h)(0x6A93DC6A)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc.h)(0x6A390362)
@@ -378,7 +378,8 @@ I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h)(0x6A390362)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6A90F297)
-I (.\App\App_Test.h)(0x6A957AE9)
+I (.\App\App_Test.h)(0x6A96B5FF)
+I (.\App\buleteethtest.h)(0x6A96B5EE)
 F (.\User\stm32f1xx_it.c)(0x6A95795C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\stm32f1xx_it.o --omf_browse .\objects\stm32f1xx_it.crf --depend .\objects\stm32f1xx_it.d)
 I (User\stm32f1xx_it.h)(0x6A95795C)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6A390362)
@@ -407,11 +408,11 @@ I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h)(0x6A390362)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6A90F297)
-I (.\Hardware\UART.h)(0x6A957AE9)
+I (.\Hardware\UART.h)(0x6A96B236)
 F (.\User\stm32f1xx_it.h)(0x6A95795C)()
 F (.\User\stm32f1xx_hal_conf.h)(0x6A93DC6A)()
-F (.\Hardware\UART.c)(0x6A95795C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\uart.o --omf_browse .\objects\uart.crf --depend .\objects\uart.d)
-I (Hardware\UART.h)(0x6A957AE9)
+F (.\Hardware\UART.c)(0x6A96B236)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\uart.o --omf_browse .\objects\uart.crf --depend .\objects\uart.d)
+I (Hardware\UART.h)(0x6A96B236)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6A390362)
 I (.\User\stm32f1xx_hal_conf.h)(0x6A93DC6A)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc.h)(0x6A390362)
@@ -438,9 +439,9 @@ I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h)(0x6A390362)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6A90F297)
-F (.\Hardware\UART.h)(0x6A957AE9)()
-F (.\Hardware\Motor.c)(0x6A957909)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
-I (Hardware\Motor.h)(0x6A957909)
+F (.\Hardware\UART.h)(0x6A96B236)()
+F (.\Hardware\Motor.c)(0x6A96BBCA)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
+I (Hardware\Motor.h)(0x6A96BBCA)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6A390362)
 I (.\User\stm32f1xx_hal_conf.h)(0x6A93DC6A)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc.h)(0x6A390362)
@@ -468,7 +469,7 @@ I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6A90F297)
 I (Hardware\Mulun.h)(0x6A9578CB)
-F (.\Hardware\Motor.h)(0x6A957909)()
+F (.\Hardware\Motor.h)(0x6A96BBCA)()
 F (.\Hardware\I2C.c)(0x6A93D5D8)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\i2c.o --omf_browse .\objects\i2c.crf --depend .\objects\i2c.d)
 I (Hardware\I2C.h)(0x6A93D5D8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6A390362)
@@ -531,7 +532,7 @@ F (.\Hardware\Mulun.c)(0x6A9578CB)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interw
 I (Hardware\Mulun.h)(0x6A9578CB)
 I (E:\K\ARM\ARMCC\include\stddef.h)(0x588B8344)
 F (.\Hardware\Mulun.h)(0x6A9578CB)()
-F (.\Hardware\UpperComputer.c)(0x6A9578CB)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\uppercomputer.o --omf_browse .\objects\uppercomputer.crf --depend .\objects\uppercomputer.d)
+F (.\Hardware\UpperComputer.c)(0x6A96B33F)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\uppercomputer.o --omf_browse .\objects\uppercomputer.crf --depend .\objects\uppercomputer.d)
 I (Hardware\UpperComputer.h)(0x6A9578CB)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6A390362)
 I (.\User\stm32f1xx_hal_conf.h)(0x6A93DC6A)
@@ -559,11 +560,11 @@ I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h)(0x6A390362)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6A90F297)
-I (Hardware\UART.h)(0x6A957AE9)
+I (Hardware\UART.h)(0x6A96B236)
 F (.\Hardware\UpperComputer.h)(0x6A9578CB)()
 F (.\App\App_Test.c)(0x6A957AE9)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\app_test.o --omf_browse .\objects\app_test.crf --depend .\objects\app_test.d)
-I (App\App_Test.h)(0x6A957AE9)
-I (.\Hardware\Motor.h)(0x6A957909)
+I (App\App_Test.h)(0x6A96B5FF)
+I (.\Hardware\Motor.h)(0x6A96BBCA)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6A390362)
 I (.\User\stm32f1xx_hal_conf.h)(0x6A93DC6A)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc.h)(0x6A390362)
@@ -590,8 +591,42 @@ I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h)(0x6A390362)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6A390FE8)
 I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6A90F297)
-I (.\Hardware\UART.h)(0x6A957AE9)
+I (.\Hardware\UART.h)(0x6A96B236)
 I (.\Hardware\WT101.h)(0x6A957909)
 I (.\Hardware\UpperComputer.h)(0x6A9578CB)
 I (E:\K\ARM\ARMCC\include\stdio.h)(0x588B8344)
-F (.\App\App_Test.h)(0x6A957AE9)()
+F (.\App\App_Test.h)(0x6A96B5FF)()
+F (.\App\buleteethtest.c)(0x6A96BBCA)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\User -I .\Hardware -I .\App -I .\Drivers\STM32F1xx_HAL_Driver\Inc -I .\Drivers\CMSIS\Include -I .\Drivers\CMSIS\Device\ST\STM32F1xx\Include-I.\RTE\_Target_1-IE:\K\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include-IE:\K\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_HAL_DRIVER -DSTM32F103xB-o .\objects\buleteethtest.o --omf_browse .\objects\buleteethtest.crf --depend .\objects\buleteethtest.d)
+I (App\buleteethtest.h)(0x6A96B5EE)
+I (E:\K\ARM\ARMCC\include\stdint.h)(0x588B8344)
+I (.\Hardware\Motor.h)(0x6A96BBCA)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6A390362)
+I (.\User\stm32f1xx_hal_conf.h)(0x6A93DC6A)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc.h)(0x6A390362)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_def.h)(0x6A390362)
+I (.\Drivers\CMSIS\Device\ST\STM32F1xx\Include\stm32f1xx.h)(0x6A390364)
+I (.\Drivers\CMSIS\Device\ST\STM32F1xx\Include\stm32f103xb.h)(0x6A390364)
+I (.\Drivers\CMSIS\Include\core_cm3.h)(0x6A134008)
+I (.\Drivers\CMSIS\Include\cmsis_version.h)(0x6A134008)
+I (.\Drivers\CMSIS\Include\cmsis_compiler.h)(0x6A134008)
+I (.\Drivers\CMSIS\Include\cmsis_armcc.h)(0x6A134008)
+I (.\Drivers\CMSIS\Device\ST\STM32F1xx\Include\system_stm32f1xx.h)(0x6A390364)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\Legacy/stm32_hal_legacy.h)(0x6A390362)
+I (E:\K\ARM\ARMCC\include\stddef.h)(0x588B8344)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_rcc_ex.h)(0x6A390362)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_gpio.h)(0x6A390362)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_gpio_ex.h)(0x6A390362)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_dma.h)(0x6A390360)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_dma_ex.h)(0x6A390362)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_i2c.h)(0x6A93D5D8)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_cortex.h)(0x6A390362)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash.h)(0x6A390362)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h)(0x6A390362)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h)(0x6A390FE8)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6A390FE8)
+I (.\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6A90F297)
+I (.\Hardware\UART.h)(0x6A96B236)
+I (E:\K\ARM\ARMCC\include\stdio.h)(0x588B8344)
+I (E:\K\ARM\ARMCC\include\stdlib.h)(0x588B8344)
+I (E:\K\ARM\ARMCC\include\string.h)(0x588B8344)
+F (.\App\buleteethtest.h)(0x6A96B5EE)()

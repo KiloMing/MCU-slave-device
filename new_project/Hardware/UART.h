@@ -13,7 +13,7 @@
  *   - USART2, GPIOA and APB1/APB2 clocks.
  *
  * @function
- *   - Initializes 8N1 USART2, its receive interrupt, and blocking diagnostics.
+ *   - Initializes 8N1 USART2, dispatches received bytes, and sends diagnostics.
  *
  * @purpose
  *   - Carries the original upper-computer packet on the verified TTL pins.
@@ -32,9 +32,12 @@
 
 extern UART_HandleTypeDef huart2;
 
+typedef void (*UART_RxByteHandler_t)(uint8_t byte);
+
 void UART_Init(uint32_t BaudRate);
 void UART_SendByte(uint8_t Byte);
 void UART_SendString(const char *String);
 uint8_t UART_ReceiveByte(void);
+void UART_StartReceiveIT(UART_RxByteHandler_t handler);
 
 #endif

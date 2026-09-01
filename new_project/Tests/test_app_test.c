@@ -26,8 +26,8 @@
 #include "stm32f1xx_hal.h"
 #include "WT101.h"
 
-#if APP_TEST_MODE != APP_TEST_CONTROL
-#error "The migration project must default to the integrated chassis control test"
+#if APP_TEST_MODE != APP_TEST_BLUETOOTH
+#error "The migration project must default to the open-loop Bluetooth chassis test"
 #endif
 
 static uint32_t uart_baud;

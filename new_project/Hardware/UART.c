@@ -14,7 +14,7 @@
  *
  * @function
  *   - Configures USART2 as 8 data bits, no parity, one stop bit.
- *   - Supports original interrupt reception plus blocking diagnostics.
+ *   - Dispatches interrupt bytes to the selected packet parser.
  *
  * @purpose
  *   - Connects the STM32 board directly to the upper computer through USB-TTL.
@@ -29,6 +29,8 @@
 #include "UART.h"
 
 UART_HandleTypeDef huart2;
+static uint8_t uart_rx_byte;
+static UART_RxByteHandler_t uart_rx_handler;
 
 void UART_Init(uint32_t BaudRate)
 {
@@ -89,4 +91,22 @@ uint8_t UART_ReceiveByte(void)
     uint8_t Byte = 0U;
     (void)HAL_UART_Receive(&huart2, &Byte, 1U, HAL_MAX_DELAY);
     return Byte;
+}
+
+void UART_StartReceiveIT(UART_RxByteHandler_t handler)
+{
+    uart_rx_handler = handler;
+    (void)HAL_UART_Receive_IT(&huart2, &uart_rx_byte, 1U);
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    if (huart->Instance == USART2)
+    {
+        if (uart_rx_handler != NULL)
+        {
+            uart_rx_handler(uart_rx_byte);
+        }
+        (void)HAL_UART_Receive_IT(&huart2, &uart_rx_byte, 1U);
+    }
 }

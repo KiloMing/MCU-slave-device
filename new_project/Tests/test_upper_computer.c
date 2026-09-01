@@ -22,7 +22,6 @@ uint32_t test_usart2_instance;
 uint32_t test_usart1_instance;
 uint32_t test_tim1_instance;
 uint32_t test_tim2_instance;
-UART_HandleTypeDef huart2 = {0};
 static uint8_t *armed_byte;
 
 void HAL_GPIO_Init(GPIO_TypeDef *port, GPIO_InitTypeDef *init)
@@ -55,6 +54,38 @@ HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart,
     }
     armed_byte = data;
     return HAL_OK;
+}
+
+HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *data,
+                                   uint16_t length, uint32_t timeout)
+{
+    (void)huart;
+    (void)data;
+    (void)length;
+    (void)timeout;
+    return HAL_OK;
+}
+
+HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *data,
+                                  uint16_t length, uint32_t timeout)
+{
+    (void)huart;
+    (void)data;
+    (void)length;
+    (void)timeout;
+    return HAL_OK;
+}
+
+void HAL_NVIC_SetPriority(int irq, uint32_t priority, uint32_t subpriority)
+{
+    (void)irq;
+    (void)priority;
+    (void)subpriority;
+}
+
+void HAL_NVIC_EnableIRQ(int irq)
+{
+    (void)irq;
 }
 
 static void feed(const uint8_t *bytes, uint32_t length)

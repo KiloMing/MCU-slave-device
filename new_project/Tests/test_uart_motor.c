@@ -176,6 +176,15 @@ HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *data,
     return HAL_OK;
 }
 
+HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart,
+                                     uint8_t *data, uint16_t length)
+{
+    (void)huart;
+    (void)data;
+    (void)length;
+    return HAL_OK;
+}
+
 void HAL_NVIC_SetPriority(int irq, uint32_t priority, uint32_t subpriority)
 {
     (void)irq;
@@ -361,12 +370,23 @@ static void test_original_mecanum_calculation_is_unchanged(void)
     expect_u32(read_pin(GPIOB, GPIO_PIN_4), GPIO_PIN_SET, "RB reverse direction retained");
 }
 
+static void test_limited_mecanum_caps_each_wheel_without_changing_original(void)
+{
+    mecanum_move_limited(700, 700, 700.0f, 699);
+    expect_all_pwm(699U);
+    expect_u32(read_pin(GPIOB, GPIO_PIN_3), GPIO_PIN_RESET,
+               "limited RB negative direction input one");
+    expect_u32(read_pin(GPIOB, GPIO_PIN_4), GPIO_PIN_SET,
+               "limited RB negative direction input two");
+}
+
 int main(void)
 {
     test_uart_uses_verified_ttl_configuration();
     test_uart_sends_and_receives_original_bytes();
     test_motor_preserves_four_wheel_test_behavior();
     test_original_mecanum_calculation_is_unchanged();
+    test_limited_mecanum_caps_each_wheel_without_changing_original();
     puts("PASS: UART and motor migration behavior");
     return 0;
 }

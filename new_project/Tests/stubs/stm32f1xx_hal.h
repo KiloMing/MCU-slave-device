@@ -4,7 +4,7 @@
  * @brief   Host-test HAL boundary for UART and motor migration tests
  *
  * @pin_resources
- *   - Models GPIOA and GPIOB pins used by USART2 and the four motor channels.
+ *   - Models GPIOA/GPIOB motor/UART pins and the PC13 activity LED.
  *
  * @peripherals
  *   - USART2, TIM1, TIM2, GPIO and RCC test doubles.
@@ -102,6 +102,7 @@ typedef struct
 
 extern GPIO_TypeDef test_gpioa;
 extern GPIO_TypeDef test_gpiob;
+extern GPIO_TypeDef test_gpioc;
 extern uint32_t test_tim1_instance;
 extern uint32_t test_tim2_instance;
 extern uint32_t test_usart2_instance;
@@ -109,6 +110,7 @@ extern uint32_t test_usart1_instance;
 
 #define GPIOA (&test_gpioa)
 #define GPIOB (&test_gpiob)
+#define GPIOC (&test_gpioc)
 #define TIM1 ((void *)&test_tim1_instance)
 #define TIM2 ((void *)&test_tim2_instance)
 #define USART2 ((void *)&test_usart2_instance)
@@ -161,6 +163,7 @@ extern uint32_t test_usart1_instance;
 
 #define __HAL_RCC_GPIOA_CLK_ENABLE() ((void)0)
 #define __HAL_RCC_GPIOB_CLK_ENABLE() ((void)0)
+#define __HAL_RCC_GPIOC_CLK_ENABLE() ((void)0)
 #define __HAL_RCC_AFIO_CLK_ENABLE() ((void)0)
 #define __HAL_RCC_USART2_CLK_ENABLE() ((void)0)
 #define __HAL_RCC_USART1_CLK_ENABLE() ((void)0)

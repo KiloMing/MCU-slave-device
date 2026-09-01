@@ -27,3 +27,4 @@
 .\objects\main.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h
 .\objects\main.o: .\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h
 .\objects\main.o: .\App\App_Test.h
+.\objects\main.o: .\App\buleteethtest.h
