@@ -1,39 +1,25 @@
 /**
  ******************************************************************************
  * @file    main.c
- * @brief   Selectable HAL migration-test entry
- *
+ * @brief   Bluetooth four-wheel encoder PID chassis test entry
  * @pin_resources
- *   - UART: PA2 TX, PA3 RX, PA6 RS485 DE, PA7 RS485 /RE.
+ *   - HC-08 UART: PA2=USART2_TX, PA3=USART2_RX, common GND.
+ *   - Activity LED: PC13 through 510 ohm to an external LED.
  *   - Motor PWM: PA0, PA1, PA8 and PA11.
- *   - Motor direction: PA4, PB3, PB4, PB5, PB12, PB13, PB14 and PB15.
- *   - HWT101 UART: PB6 USART1_TX and PB7 USART1_RX after USART1 remap.
- *   - Bluetooth activity LED: PC13 output to an external LED through 510 ohm.
- *   - PA13 : SWDIO, reserved for programming and debugging.
- *   - PA14 : SWCLK, reserved for programming and debugging.
- *
- * @peripherals
- *   - RCC, SysTick, USART1, USART2, TIM1, TIM2, GPIOA, GPIOB and AFIO.
- *
- * @function
- *   - UART mode: sends the verified ready text, then echoes received bytes.
- *   - Motor mode: PWM 500 forward 10 s, reverse 10 s, continuously.
- *   - WT101 mode: forwards 11-byte raw frames and checksum state through USART2.
- *   - Bluetooth mode: maps joystick packets directly to Mecanum chassis motion.
- *
- * @purpose
- *   - Independently verifies each migrated interface and chassis function.
- *
- * @migration
- *   - Sources: verified E:\project_M\test_p UART and motor tests.
- *   - HWT101 input and USART2 debug output: 115200 8N1 on separate UARTs.
- *   - Unchanged: PWM 500 and 10-second direction intervals.
- *   - Default Bluetooth mode does not use WT101, attitude calculation or PID.
+ *   - Motor direction: PA4, PB3/PB4/PB5/PB12/PB13/PB14/PB15.
+ *   - Motor A encoder: PB6/PB7; Motor B encoder: PA6/PA7.
+ *   - Motor C encoder: A phase PB1, B phase PB0.
+ *   - Motor D encoder: A phase PA12, B phase PA5.
+ *   - PA13=SWDIO and PA14=SWCLK remain reserved for debugging.
+ * @peripherals USART2, TIM1-TIM4, GPIOA/B/C, AFIO, EXTI and SysTick.
+ * @function Receives [j,LX,LY,RX,RY] and runs four independent speed PIDs.
+ * @purpose Tests closed-loop Mecanum translation and rotation over Bluetooth.
+ * @migration Keeps the packet axes, wheel equations, encoder conversion and
+ *            tuned per-motor PID gains established by the staged tests.
  ******************************************************************************
  */
 
 #include "stm32f1xx_hal.h"
-#include "App_Test.h"
 #include "buleteethtest.h"
 
 static void SystemClock_Config(void);
@@ -43,42 +29,12 @@ int main(void)
 {
     HAL_Init();
     SystemClock_Config();
-
-#if APP_TEST_MODE == APP_TEST_UART
-    App_Test_UART_Init();
-
-    while (1)
-    {
-        App_Test_UART_ProcessByte();
-    }
-#elif APP_TEST_MODE == APP_TEST_MOTOR
-    App_Test_Motor_Init();
-
-    while (1)
-    {
-        App_Test_Motor_RunCycle();
-    }
-#elif APP_TEST_MODE == APP_TEST_WT101
-    App_Test_WT101_Init();
-    while (1)
-    {
-        App_Test_WT101_RunStep();
-    }
-#elif APP_TEST_MODE == APP_TEST_CONTROL
-    App_Test_Control_Init();
-    while (1)
-    {
-        App_Test_Control_RunStep();
-    }
-#elif APP_TEST_MODE == APP_TEST_BLUETOOTH
     BluetoothTest_Init();
+
     while (1)
     {
         BluetoothTest_RunStep();
     }
-#else
-#error "APP_TEST_MODE selection is invalid"
-#endif
 }
 
 static void SystemClock_Config(void)

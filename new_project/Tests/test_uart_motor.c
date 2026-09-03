@@ -4,7 +4,7 @@
  * @brief   Host behavior tests for the migrated UART and motor drivers
  *
  * @pin_resources
- *   - UART: PA2 TX, PA3 RX, PA6 RS485 DE, PA7 RS485 /RE.
+ *   - UART: PA2 TX and PA3 RX; PA6/PA7 are reserved for Motor B encoder.
  *   - Motor PWM: PA0, PA1, PA8, PA11.
  *   - Motor direction: PA4, PB3, PB4, PB5, PB12, PB13, PB14, PB15.
  *
@@ -259,8 +259,11 @@ static void test_uart_uses_verified_ttl_configuration(void)
     expect_u32(uart_init_snapshot.Init.WordLength, UART_WORDLENGTH_8B, "8 data bits");
     expect_u32(uart_init_snapshot.Init.StopBits, UART_STOPBITS_1, "one stop bit");
     expect_u32(uart_init_snapshot.Init.Parity, UART_PARITY_NONE, "no parity");
-    expect_u32(read_pin(GPIOA, GPIO_PIN_6), GPIO_PIN_RESET, "RS485 DE disabled");
-    expect_u32(read_pin(GPIOA, GPIO_PIN_7), GPIO_PIN_SET, "RS485 receiver output disabled");
+    if (gpio_was_initialized(GPIOA, GPIO_PIN_6 | GPIO_PIN_7,
+                             GPIO_MODE_OUTPUT_PP))
+    {
+        fail("UART must not take PA6/PA7 from Motor B encoder");
+    }
     if (!gpio_was_initialized(GPIOA, GPIO_PIN_2, GPIO_MODE_AF_PP))
     {
         fail("PA2 must be configured as USART2 alternate-function output");
@@ -380,6 +383,24 @@ static void test_limited_mecanum_caps_each_wheel_without_changing_original(void)
                "limited RB negative direction input two");
 }
 
+static void test_ramped_mecanum_reaches_limit_and_crosses_zero_on_reverse(void)
+{
+    Motor_Init();
+
+    mecanum_move_ramped(700, 0, 0.0f, 699, 350U);
+    expect_all_pwm(350U);
+
+    mecanum_move_ramped(700, 0, 0.0f, 699, 349U);
+    expect_all_pwm(699U);
+
+    mecanum_move_ramped(-700, 0, 0.0f, 699, 699U);
+    expect_all_pwm(0U);
+
+    mecanum_move_ramped(-700, 0, 0.0f, 699, 699U);
+    expect_all_pwm(699U);
+    expect_reverse_pins();
+}
+
 int main(void)
 {
     test_uart_uses_verified_ttl_configuration();
@@ -387,6 +408,7 @@ int main(void)
     test_motor_preserves_four_wheel_test_behavior();
     test_original_mecanum_calculation_is_unchanged();
     test_limited_mecanum_caps_each_wheel_without_changing_original();
+    test_ramped_mecanum_reaches_limit_and_crosses_zero_on_reverse();
     puts("PASS: UART and motor migration behavior");
     return 0;
 }

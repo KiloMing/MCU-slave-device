@@ -54,6 +54,10 @@
 #define RB_DIR_LOW_PIN   GPIO_PIN_4
 
 static PID_Mulun_HandleTypeDef mulun_pid;
+static int32_t ramp_speed_lf;
+static int32_t ramp_speed_rf;
+static int32_t ramp_speed_lb;
+static int32_t ramp_speed_rb;
 
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
@@ -69,6 +73,42 @@ static uint32_t Motor_ClampPwm(int32_t speed)
 {
     uint32_t pwm = (speed < 0) ? (uint32_t)(-speed) : (uint32_t)speed;
     return (pwm > MOTOR_PWM_PERIOD) ? MOTOR_PWM_PERIOD : pwm;
+}
+
+static int32_t Motor_LimitSigned(int32_t speed, int32_t limit)
+{
+    if (speed > limit)
+    {
+        return limit;
+    }
+    if (speed < -limit)
+    {
+        return -limit;
+    }
+    return speed;
+}
+
+static int32_t Motor_RampValue(int32_t current, int32_t target,
+                               int32_t max_step)
+{
+    int32_t difference;
+
+    if (((current > 0) && (target < 0)) ||
+        ((current < 0) && (target > 0)))
+    {
+        target = 0;
+    }
+
+    difference = target - current;
+    if (difference > max_step)
+    {
+        return current + max_step;
+    }
+    if (difference < -max_step)
+    {
+        return current - max_step;
+    }
+    return target;
 }
 
 static void Motor_SetDirection(GPIO_TypeDef *high_port, uint16_t high_pin,
@@ -184,6 +224,10 @@ void motor_PWM_Init(void)
 
 void motor_stop_all(void)
 {
+    ramp_speed_lf = 0;
+    ramp_speed_rf = 0;
+    ramp_speed_lb = 0;
+    ramp_speed_rb = 0;
     __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, 0U);
     __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, 0U);
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, 0U);
@@ -275,6 +319,42 @@ void mecanum_move_limited(int32_t vx, int32_t vy, float omega,
     Motor_RF_SetSpeed(speed_rf);
     Motor_LB_SetSpeed(speed_lb);
     Motor_RB_SetSpeed(speed_rb);
+}
+
+void mecanum_move_ramped(int32_t vx, int32_t vy, float omega,
+                         int32_t pwm_limit, uint32_t max_step)
+{
+    int32_t target_lf = vx - vy + omega;
+    int32_t target_rf = vx + vy - omega;
+    int32_t target_lb = vx + vy + omega;
+    int32_t target_rb = vx - vy - omega;
+    int32_t signed_step;
+
+    if (pwm_limit < 0)
+    {
+        pwm_limit = -pwm_limit;
+    }
+    if (pwm_limit > (int32_t)MOTOR_PWM_PERIOD)
+    {
+        pwm_limit = (int32_t)MOTOR_PWM_PERIOD;
+    }
+
+    target_lf = Motor_LimitSigned(target_lf, pwm_limit);
+    target_rf = Motor_LimitSigned(target_rf, pwm_limit);
+    target_lb = Motor_LimitSigned(target_lb, pwm_limit);
+    target_rb = Motor_LimitSigned(target_rb, pwm_limit);
+    signed_step = (max_step > (uint32_t)pwm_limit) ?
+                  pwm_limit : (int32_t)max_step;
+
+    ramp_speed_lf = Motor_RampValue(ramp_speed_lf, target_lf, signed_step);
+    ramp_speed_rf = Motor_RampValue(ramp_speed_rf, target_rf, signed_step);
+    ramp_speed_lb = Motor_RampValue(ramp_speed_lb, target_lb, signed_step);
+    ramp_speed_rb = Motor_RampValue(ramp_speed_rb, target_rb, signed_step);
+
+    Motor_LF_SetSpeed(ramp_speed_lf);
+    Motor_RF_SetSpeed(ramp_speed_rf);
+    Motor_LB_SetSpeed(ramp_speed_lb);
+    Motor_RB_SetSpeed(ramp_speed_rb);
 }
 
 void mecanum_with_heading_control(uint16_t vx, uint16_t vy,

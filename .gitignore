@@ -1,0 +1,14 @@
+# Keil build outputs
+new_project/Objects/
+new_project/Listings/
+
+# Local IDE and Keil session files
+new_project/.vscode/*.log
+new_project/.vscode/*.log.lock
+new_project/project.uvguix.*
+
+# Host-side test executables
+new_project/Tests/*.exe
+
+# Temporary working files
+tmp/

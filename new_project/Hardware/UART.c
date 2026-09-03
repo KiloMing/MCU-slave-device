@@ -6,8 +6,7 @@
  * @pin_resources
  *   - PA2 : USART2_TX, alternate-function push-pull output.
  *   - PA3 : USART2_RX, floating input.
- *   - PA6 : onboard RS485-2 DE, held low.
- *   - PA7 : onboard RS485-2 /RE, held high.
+ *   - PA6/PA7 are not configured here; reserved for Motor B encoder.
  *
  * @peripherals
  *   - USART2, GPIOA and APB1/APB2 clocks.
@@ -21,7 +20,8 @@
  *
  * @migration
  *   - Source: E:\project_M\test_p\Hardware\UART.c from Git commit 53ca0a6.
- *   - Unchanged: PA2/PA3, RS485 disable levels, API and blocking behavior.
+ *   - Unchanged: PA2/PA3, API and blocking behavior.
+ *   - Adapted: PA6/PA7 released from RS485 control for Motor B encoder.
  *   - Adapted: standard-peripheral initialization replaced by HAL.
  ******************************************************************************
  */
@@ -38,14 +38,6 @@ void UART_Init(uint32_t BaudRate)
 
     __HAL_RCC_GPIOA_CLK_ENABLE();
     __HAL_RCC_USART2_CLK_ENABLE();
-
-    GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7;
-    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_7, GPIO_PIN_SET);
 
     GPIO_InitStruct.Pin = GPIO_PIN_2;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;

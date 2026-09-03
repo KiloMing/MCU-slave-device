@@ -6,8 +6,7 @@
  * @pin_resources
  *   - PA2 : USART2_TX, TTL output to USB-TTL RXD.
  *   - PA3 : USART2_RX, TTL input from USB-TTL TXD.
- *   - PA6 : onboard RS485-2 DE, output low to disable its transmitter.
- *   - PA7 : onboard RS485-2 /RE, output high to disable its receiver output.
+ *   - PA6/PA7 are reserved for the Motor B encoder and untouched by UART.
  *
  * @peripherals
  *   - USART2, GPIOA and APB1/APB2 clocks.

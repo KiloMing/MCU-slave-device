@@ -16,6 +16,7 @@
  *   - Initializes four PWM outputs, controls signed speeds and performs
  *     the original Mecanum-wheel heading calculation.
  *   - Provides an optional per-wheel limit for isolated open-loop tests.
+ *   - Provides a time-step ramp output that crosses zero before reversing.
  *
  * @purpose
  *   - Drives the four chassis motors through the D24A board.
@@ -46,6 +47,8 @@ void Motor_RB_SetSpeed(int32_t speed);
 void mecanum_move(int32_t vx, int32_t vy, float omega);
 void mecanum_move_limited(int32_t vx, int32_t vy, float omega,
                           int32_t pwm_limit);
+void mecanum_move_ramped(int32_t vx, int32_t vy, float omega,
+                         int32_t pwm_limit, uint32_t max_step);
 void mecanum_with_heading_control(uint16_t vx, uint16_t vy,
                                   float target_yaw, float current_yaw);
 

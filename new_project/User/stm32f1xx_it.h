@@ -4,10 +4,10 @@
  * @brief   HAL interrupt handler declarations
  *
  * @pin_resources
- *   - No direct GPIO resources.
+ *   - PB0/PB1 and PA5/PA12 motor encoder EXTI lines.
  *
  * @peripherals
- *   - Cortex-M3 core exceptions, SysTick and USART2.
+ *   - Cortex-M3 core exceptions, SysTick, USART2 and GPIO EXTI.
  *
  * @function
  *   - Declares the interrupt handlers required by the startup file.
@@ -40,6 +40,10 @@ void DebugMon_Handler(void);
 void PendSV_Handler(void);
 void SysTick_Handler(void);
 void USART2_IRQHandler(void);
+void EXTI0_IRQHandler(void);
+void EXTI1_IRQHandler(void);
+void EXTI9_5_IRQHandler(void);
+void EXTI15_10_IRQHandler(void);
 
 #ifdef __cplusplus
 }

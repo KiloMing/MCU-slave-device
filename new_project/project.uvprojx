@@ -506,6 +506,31 @@
               <FilePath>.\Hardware\Motor.h</FilePath>
             </File>
             <File>
+              <FileName>MotorSpeedPID.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MotorSpeedPID.c</FilePath>
+            </File>
+            <File>
+              <FileName>MotorSpeedPID.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MotorSpeedPID.h</FilePath>
+            </File>
+            <File>
+              <FileName>MotorEncoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MotorEncoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>MotorEncoderMath.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\MotorEncoderMath.c</FilePath>
+            </File>
+            <File>
+              <FileName>MotorEncoder.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\MotorEncoder.h</FilePath>
+            </File>
+            <File>
               <FileName>I2C.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hardware\I2C.c</FilePath>
